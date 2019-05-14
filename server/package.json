@@ -1,5 +1,13 @@
 {
-  "name": "aa-notifications-server",
+  "name": "@superalgos/notifications-api",
+  "version": "0.1.0",
+  "description": "Superalgos Notifications Module",
+  "author": "Barry Low <bearcanru@gmail.com>",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Superalgos/NotificationsModule.git"
+  },
   "scripts": {
     "start": "NODE_ENV=production nodemon -e js,graphql -x node -r @babel/register -r dotenv/config src/index.js",
     "debug": "nodemon --trace-warnings src/index.js --watch ./src --exec \"node  --require @babel/register --require dotenv/config\"",
@@ -27,16 +35,16 @@
     "request-promise-native": "^1.0.5"
   },
   "devDependencies": {
-    "@babel/cli": "^7.2.0",
-    "@babel/core": "^7.2.0",
-    "@babel/node": "^7.2.0",
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.4",
+    "@babel/node": "^7.2.2",
     "@babel/plugin-proposal-class-properties": "^7.2.1",
     "@babel/plugin-proposal-throw-expressions": "^7.2.0",
     "@babel/polyfill": "^7.0.0",
-    "@babel/preset-env": "^7.2.0",
+    "@babel/preset-env": "^7.4.4",
     "@babel/register": "^7.0.0",
     "dotenv": "^6.2.0",
-    "graphql-cli": "^2.17.0",
+    "graphql-cli": "^3.0.11",
     "nodemon": "^1.18.7",
     "npm-run-all": "^4.1.5",
     "winston": "^3.1.0"
