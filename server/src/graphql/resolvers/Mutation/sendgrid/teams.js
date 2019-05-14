@@ -1,4 +1,3 @@
-import sgMail from '@sendgrid/mail'
 import axios from 'axios'
 import jwt from 'jsonwebtoken'
 import { ApolloError } from 'apollo-server-express'
@@ -14,6 +13,8 @@ export default {
   async Teams_SendTeamMemberInvite(parent, { email, teamName }, ctx, info) {
     logger.info('Teams_NewsletterSignup params email:')
     logger.info(email)
+    if(API_KEY === undefined) return; //Bypass sendgrid if not defined
+
     const token = jwt.sign({ email: email }, API_KEY, { expiresIn: '1d' })
     const params = '/email-verification?token='
 
@@ -67,6 +68,9 @@ export default {
   },
 
   async Teams_VerifyTeamMemberInviteToken(parent, { email, teamName }, ctx, info) {
+    logger.info('Teams_VerifyTeamMemberInviteToken.')
+    if(API_KEY === undefined) return; //Bypass sendgrid if not defined
+
     let verifiedToken
     try {
         verifiedToken = await jwt.verify(token, API_KEY, {maxAge: '7d'})
@@ -82,6 +86,9 @@ export default {
   },
 
   async Teams_SendTeamCreateConfirmation(parent, { email, teamName, botName }, ctx, info){
+    logger.info('Teams_VerifyTeamMemberInviteToken.')
+    if(API_KEY === undefined) return; //Bypass sendgrid if not defined
+
     const data = JSON.stringify({
         "personalizations": [
           {

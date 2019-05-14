@@ -1,4 +1,3 @@
-import sgMail from '@sendgrid/mail'
 import axios from 'axios'
 import jwt from 'jsonwebtoken'
 import { ApolloError } from 'apollo-server-express'
@@ -14,6 +13,9 @@ export default {
   async Master_NewsletterSignup(parent, { email }, ctx, info) {
     logger.info('Master_NewsletterSignup params email:')
     logger.info(email)
+
+    if(API_KEY === undefined) return; //Bypass sendgrid if not defined
+
     const token = jwt.sign({ email: email }, API_KEY, { expiresIn: '1d' })
     const params = '/email-verification?token='
 
@@ -69,6 +71,9 @@ export default {
     return sendVerify
   },
   async Master_NewsletterSignupVerify(parent, { token }, ctx, info){
+    logger.info('Master_NewsletterSignupVerify.')
+    if(API_KEY === undefined) return; //Bypass sendgrid if not defined
+
     let verifiedToken
     try {
       verifiedToken = jwt.verify(token, API_KEY, {maxAge: '1d'})
@@ -139,6 +144,9 @@ export default {
     return subscribe
   },
   async Master_Feedback(parent, { email, subject, message, recaptcha }, ctx, info) {
+    logger.info('Master_Feedback.')
+    if(API_KEY === undefined) return; //Bypass sendgrid if not defined
+
     const toEmail = 'feedback@superalgos.org'
 
     const data = JSON.stringify({
